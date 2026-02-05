@@ -1,9 +1,6 @@
 package com.breynisson.rubiks;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.breynisson.rubiks.Position.*;
 import static com.breynisson.rubiks.Position.BACK_TOP_RIGHT;
@@ -46,7 +43,8 @@ public enum Action {
     static List<Action> createReverseActions(Collection<Action> actions) {
         List<Action> orderedActions = new ArrayList<>(actions);
         List<Action> reverseActions = new ArrayList<>();
-        for (Action action : orderedActions.reversed()) {
+        Collections.reverse(orderedActions);
+        for (Action action : orderedActions) {
             reverseActions.add(Action.reverseAction(action));
         }
         return reverseActions;

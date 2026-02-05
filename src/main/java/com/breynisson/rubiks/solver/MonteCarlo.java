@@ -40,7 +40,7 @@ public class MonteCarlo implements Solver {
                 iterationList.add(new Iteration(bestModel, createRandomActionList()));
                 iterations++;
             }
-            Iteration bestIteration = iterationList.getFirst();
+            Iteration bestIteration = iterationList.get(0);
             int minDifference = Integer.MAX_VALUE;
             for (Iteration iteration : iterationList) {
                 int difference = iteration.result.differenceWithTargetState();

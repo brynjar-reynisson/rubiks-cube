@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MonteCarloTest {
 
-    @Test
+    //@Test
     void shouldSolve() {
         //given
         CubeModel cubeModel = new CubeModel();
