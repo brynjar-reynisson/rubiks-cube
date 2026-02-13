@@ -2,7 +2,6 @@ package com.breynisson.rubiks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import static com.breynisson.rubiks.Action.*;
@@ -14,7 +13,7 @@ public class Scrambler {
         List<Action> actions = new ArrayList<>();
         for (int i=0; i<actionCount; i++) {
             int nextOrdinal = random.nextInt(BOTTOM_RIGHT.ordinal()+1);
-            actions.add(actionsByOrdinal.get(nextOrdinal));
+            actions.add(actionByOrdinal.get(nextOrdinal));
         }
         return actions;
     }

@@ -98,6 +98,18 @@ public class CubeModel {
         return new ArrayList<>(brickStates.values());
     }
 
+    public void applyStandardNotationActions(Collection<String> standardNotationActions) {
+        List<Action> actions = new ArrayList<>();
+        for (String standardNotationAction : standardNotationActions) {
+            Action action = Action.actionByStandardNotation.get(standardNotationAction);
+            if (action == null) {
+                throw new CubeException("Unknown standard notation action: " + standardNotationAction);
+            }
+            actions.add(action);
+        }
+        applyActions(actions);
+    }
+
     public void applyActions(Collection<Action> actions) {
         for (Action action : actions) {
             applyAction(action);

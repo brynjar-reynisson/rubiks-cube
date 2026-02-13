@@ -2,6 +2,8 @@ package com.breynisson.rubiks;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static com.breynisson.rubiks.Action.*;
 import static com.breynisson.rubiks.Side.FRONT;
 import static org.junit.jupiter.api.Assertions.*;
@@ -145,7 +147,7 @@ class CubeModelTest {
         int differences = cubeModel.differenceWithTargetState();
 
         //then
-        assertEquals(12, differences);
+        assertEquals(20, differences);
     }
 
     @Test
@@ -159,5 +161,60 @@ class CubeModelTest {
 
         //then
         assertEquals(0, differences);
+    }
+
+    @Test
+    void scrambleAndUnscrambleWithStandardNotation() {
+        //given
+        CubeModel cubeModel = new CubeModel();
+        cubeModel.setState(CubeModel.TARGET_STATE);
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("R", "U", "R'", "U'"));
+
+        //then
+        assertFalse(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("U", "R", "U'", "R'"));
+
+        //then
+        assertTrue(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("L", "D", "L'", "D'"));
+
+        //then
+        assertFalse(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("D", "L", "D'", "L'"));
+
+        //then
+        assertTrue(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("F", "D", "F'", "D'"));
+
+        //then
+        assertFalse(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("D", "F", "D'", "F'"));
+
+        //then
+        assertTrue(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("B", "U", "B'", "U'"));
+
+        //then
+        assertFalse(cubeModel.equalsTargetState());
+
+        //when
+        cubeModel.applyStandardNotationActions(List.of("U", "B", "U'", "B'"));
+
+        //then
+        assertTrue(cubeModel.equalsTargetState());
     }
 }

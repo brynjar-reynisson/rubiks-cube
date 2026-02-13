@@ -61,10 +61,38 @@ enum Position {
     BACK_MIDDLE_RIGHT(BACK),
     BACK_BOTTOM_LEFT(BACK),
     BACK_BOTTOM_MIDDLE(BACK),
-    BACK_BOTTOM_RIGHT(BACK)
-    ;
+    BACK_BOTTOM_RIGHT(BACK);
     public final Side side;
+
     Position(Side side) {
         this.side = side;
+    }
+
+    static boolean isCornerPosition(Position position) {
+        return position == FRONT_TOP_LEFT ||
+                position == FRONT_TOP_RIGHT ||
+                position == FRONT_BOTTOM_LEFT ||
+                position == FRONT_BOTTOM_RIGHT ||
+                position == LEFT_FRONT_TOP ||
+                position == LEFT_FRONT_BOTTOM ||
+                position == LEFT_BACK_TOP ||
+                position == LEFT_BACK_BOTTOM ||
+                position == TOP_FRONT_LEFT ||
+                position == TOP_FRONT_RIGHT ||
+                position == TOP_BACK_LEFT ||
+                position == TOP_BACK_RIGHT ||
+                position == RIGHT_FRONT_TOP ||
+                position == RIGHT_FRONT_BOTTOM ||
+                position == RIGHT_BACK_TOP ||
+                position == RIGHT_BACK_BOTTOM ||
+                position == BOTTOM_FRONT_LEFT ||
+                position == BOTTOM_FRONT_RIGHT ||
+                position == BOTTOM_BACK_LEFT ||
+                position == BOTTOM_BACK_RIGHT ||
+                position == BACK_TOP_LEFT ||
+                position == BACK_TOP_RIGHT ||
+                position == BACK_BOTTOM_LEFT ||
+                position == BACK_BOTTOM_RIGHT
+                ;
     }
 }

@@ -6,21 +6,33 @@ import static com.breynisson.rubiks.Position.*;
 import static com.breynisson.rubiks.Position.BACK_TOP_RIGHT;
 
 public enum Action {
-    LEFT_DOWN,
-    LEFT_UP,
-    RIGHT_DOWN,
-    RIGHT_UP,
-    TOP_LEFT,
-    TOP_RIGHT,
-    BOTTOM_LEFT,
-    BOTTOM_RIGHT,
-    FRONT_LEFT,
-    FRONT_RIGHT,
-    BACK_LEFT,
-    BACK_RIGHT;
+    LEFT_DOWN("L"),
+    LEFT_UP("L'"),
+    RIGHT_DOWN("R'"),
+    RIGHT_UP("R"),
+    TOP_LEFT("U'"),
+    TOP_RIGHT("U"),
+    BOTTOM_LEFT("D"),
+    BOTTOM_RIGHT("D'"),
+    FRONT_LEFT("F'"),
+    FRONT_RIGHT("F"),
+    BACK_LEFT("B"),
+    BACK_RIGHT("B'")
+    ;
 
+    final String standardNotation;//clock-wise L, U (top), R, D (bottom), F (front), B (back) and inverse counter-clockwise, L', U'...
+    Action(String standardNotation) {
+        this.standardNotation = standardNotation;
+    }
 
-    public static final Map<Integer, Action> actionsByOrdinal = new HashMap<>(Map.of(
+    public static final Map<String, Action> actionByStandardNotation = new HashMap<>();
+    static {
+        for (Action action : Action.values()) {
+            actionByStandardNotation.put(action.standardNotation, action);
+        }
+    }
+
+    public static final Map<Integer, Action> actionByOrdinal = new HashMap<>(Map.of(
             LEFT_DOWN.ordinal(), LEFT_DOWN,
             LEFT_UP.ordinal(), LEFT_UP,
             RIGHT_DOWN.ordinal(), RIGHT_DOWN,
@@ -37,8 +49,8 @@ public enum Action {
     ));
 
     static {
-        actionsByOrdinal.put(BACK_LEFT.ordinal(), BACK_LEFT);
-        actionsByOrdinal.put(BACK_RIGHT.ordinal(), BACK_RIGHT);
+        actionByOrdinal.put(BACK_LEFT.ordinal(), BACK_LEFT);
+        actionByOrdinal.put(BACK_RIGHT.ordinal(), BACK_RIGHT);
     }
 
     static Action reverseAction(Action action) {
