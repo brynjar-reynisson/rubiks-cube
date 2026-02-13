@@ -118,6 +118,11 @@ class CubeModelTest {
         cubeModel.applyAction(BOTTOM_RIGHT);
         String cube8 = cubeModel.displayCube();
 
+        cubeModel.applyAction(FRONT_LEFT);
+        cubeModel.applyAction(FRONT_RIGHT);
+        cubeModel.applyAction(BACK_LEFT);
+        cubeModel.applyAction(BACK_RIGHT);
+
         //then
         assertTrue(cubeModel.equalsTargetState());
         assertNotEquals(cube1, cube2);
@@ -141,5 +146,18 @@ class CubeModelTest {
 
         //then
         assertEquals(12, differences);
+    }
+
+    @Test
+    void equalsTargetState() {
+        //given
+        CubeModel cubeModel = new CubeModel();
+        cubeModel.setState(CubeModel.TARGET_STATE);
+
+        //when
+        int differences = cubeModel.differenceWithTargetState();
+
+        //then
+        assertEquals(0, differences);
     }
 }

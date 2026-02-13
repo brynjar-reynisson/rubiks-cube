@@ -40,16 +40,22 @@ public class MonteCarlo implements Solver {
                 iterationList.add(new Iteration(bestModel, createRandomActionList()));
                 iterations++;
             }
-            Iteration bestIteration = iterationList.get(0);
-            int minDifference = Integer.MAX_VALUE;
+            Iteration bestIteration = null;
+            int minDifference = bestModel.differenceWithTargetState();
             for (Iteration iteration : iterationList) {
                 int difference = iteration.result.differenceWithTargetState();
                 if (difference < minDifference) {
                     bestIteration = iteration;
+                    minDifference = difference;
                 }
             }
-            selectedActionSequence.addAll(bestIteration.actions);
-            bestModel = bestIteration.result;
+            if (bestIteration != null) {
+                selectedActionSequence.addAll(bestIteration.actions);
+                bestModel = bestIteration.result;
+                if (bestModel.equalsTargetState()) {
+                    break;
+                }
+            }
         }
         return selectedActionSequence;
     }
@@ -69,9 +75,15 @@ public class MonteCarlo implements Solver {
         private final CubeModel result;
 
         private Iteration(CubeModel initialModel, List<Action> actions) {
-            this.actions = actions;
             result = initialModel.createClone();
-            result.applyActions(actions);
+            for (int i=0; i<actions.size(); i++) {
+                result.applyAction(actions.get(i));
+                if (result.equalsTargetState()) {
+                    this.actions = actions.subList(0, i+1);
+                    return;
+                }
+            }
+            this.actions = actions;
         }
     }
 }

@@ -13,10 +13,14 @@ public enum Action {
     TOP_LEFT,
     TOP_RIGHT,
     BOTTOM_LEFT,
-    BOTTOM_RIGHT
-    ;
+    BOTTOM_RIGHT,
+    FRONT_LEFT,
+    FRONT_RIGHT,
+    BACK_LEFT,
+    BACK_RIGHT;
 
-    public static final Map<Integer, Action> actionsByOrdinal = Map.of(
+
+    public static final Map<Integer, Action> actionsByOrdinal = new HashMap<>(Map.of(
             LEFT_DOWN.ordinal(), LEFT_DOWN,
             LEFT_UP.ordinal(), LEFT_UP,
             RIGHT_DOWN.ordinal(), RIGHT_DOWN,
@@ -24,11 +28,21 @@ public enum Action {
             TOP_LEFT.ordinal(), TOP_LEFT,
             TOP_RIGHT.ordinal(), TOP_RIGHT,
             BOTTOM_LEFT.ordinal(), BOTTOM_LEFT,
-            BOTTOM_RIGHT.ordinal(), BOTTOM_RIGHT
-    );
+            BOTTOM_RIGHT.ordinal(), BOTTOM_RIGHT,
+            FRONT_LEFT.ordinal(), FRONT_LEFT,
+            FRONT_RIGHT.ordinal(), FRONT_RIGHT
+            //Map.of takes max 10 key/value pairs
+            //BACK_LEFT.ordinal(), BACK_LEFT,
+            //BACK_RIGHT.ordinal(), BACK_RIGHT
+    ));
+
+    static {
+        actionsByOrdinal.put(BACK_LEFT.ordinal(), BACK_LEFT);
+        actionsByOrdinal.put(BACK_RIGHT.ordinal(), BACK_RIGHT);
+    }
 
     static Action reverseAction(Action action) {
-        return switch(action) {
+        return switch (action) {
             case LEFT_DOWN -> LEFT_UP;
             case LEFT_UP -> LEFT_DOWN;
             case RIGHT_DOWN -> RIGHT_UP;
@@ -37,6 +51,10 @@ public enum Action {
             case TOP_RIGHT -> TOP_LEFT;
             case BOTTOM_LEFT -> BOTTOM_RIGHT;
             case BOTTOM_RIGHT -> BOTTOM_LEFT;
+            case FRONT_LEFT -> FRONT_RIGHT;
+            case FRONT_RIGHT -> FRONT_LEFT;
+            case BACK_LEFT -> BACK_RIGHT;
+            case BACK_RIGHT -> BACK_LEFT;
         };
     }
 
@@ -50,7 +68,7 @@ public enum Action {
         return reverseActions;
     }
 
-    static final Map<Action, List<Result>> results = Map.of(
+    static final Map<Action, List<Result>> results = new HashMap<>(Map.of(
             LEFT_DOWN, List.of(
                     $(FRONT_TOP_LEFT, BOTTOM_FRONT_LEFT),
                     $(FRONT_MIDDLE_LEFT, BOTTOM_MIDDLE_LEFT),
@@ -228,8 +246,114 @@ public enum Action {
                     $(BOTTOM_BACK_LEFT, BOTTOM_FRONT_LEFT),
                     $(BOTTOM_MIDDLE_LEFT, BOTTOM_FRONT_MIDDLE),
                     $(BOTTOM_FRONT_LEFT, BOTTOM_FRONT_RIGHT)
+            ),
+            FRONT_LEFT, List.of(
+                    $(TOP_FRONT_LEFT, LEFT_FRONT_BOTTOM),
+                    $(TOP_FRONT_MIDDLE, LEFT_FRONT_MIDDLE),
+                    $(TOP_FRONT_RIGHT, LEFT_FRONT_TOP),
+                    $(RIGHT_FRONT_TOP, TOP_FRONT_LEFT),
+                    $(RIGHT_FRONT_MIDDLE, TOP_FRONT_MIDDLE),
+                    $(RIGHT_FRONT_BOTTOM, TOP_FRONT_RIGHT),
+                    $(BOTTOM_FRONT_RIGHT, RIGHT_FRONT_TOP),
+                    $(BOTTOM_FRONT_MIDDLE, RIGHT_FRONT_MIDDLE),
+                    $(BOTTOM_FRONT_LEFT, RIGHT_FRONT_BOTTOM),
+                    $(LEFT_FRONT_BOTTOM, BOTTOM_FRONT_RIGHT),
+                    $(LEFT_FRONT_MIDDLE, BOTTOM_FRONT_MIDDLE),
+                    $(LEFT_FRONT_TOP, BOTTOM_FRONT_LEFT),
+                    $(FRONT_TOP_LEFT, FRONT_BOTTOM_LEFT),
+                    $(FRONT_TOP_MIDDLE, FRONT_MIDDLE_LEFT),
+                    $(FRONT_TOP_RIGHT, FRONT_TOP_LEFT),
+                    $(FRONT_MIDDLE_RIGHT, FRONT_TOP_MIDDLE),
+                    $(FRONT_BOTTOM_RIGHT, FRONT_TOP_RIGHT),
+                    $(FRONT_BOTTOM_MIDDLE, FRONT_MIDDLE_RIGHT),
+                    $(FRONT_BOTTOM_LEFT, FRONT_BOTTOM_RIGHT),
+                    $(FRONT_MIDDLE_LEFT, FRONT_BOTTOM_MIDDLE),
+                    $(FRONT_TOP_LEFT, FRONT_BOTTOM_LEFT)
+            ),
+            FRONT_RIGHT, List.of(
+                    $(TOP_FRONT_LEFT, RIGHT_FRONT_TOP),
+                    $(TOP_FRONT_MIDDLE, RIGHT_FRONT_MIDDLE),
+                    $(TOP_FRONT_RIGHT, RIGHT_FRONT_BOTTOM),
+                    $(RIGHT_FRONT_TOP, BOTTOM_FRONT_RIGHT),
+                    $(RIGHT_FRONT_MIDDLE, BOTTOM_FRONT_MIDDLE),
+                    $(RIGHT_FRONT_BOTTOM, BOTTOM_FRONT_LEFT),
+                    $(BOTTOM_FRONT_RIGHT, LEFT_FRONT_BOTTOM),
+                    $(BOTTOM_FRONT_MIDDLE, LEFT_FRONT_MIDDLE),
+                    $(BOTTOM_FRONT_LEFT, LEFT_FRONT_TOP),
+                    $(LEFT_FRONT_BOTTOM, TOP_FRONT_LEFT),
+                    $(LEFT_FRONT_MIDDLE, TOP_FRONT_MIDDLE),
+                    $(LEFT_FRONT_TOP, TOP_FRONT_RIGHT),
+                    $(FRONT_TOP_LEFT, FRONT_TOP_RIGHT),
+                    $(FRONT_TOP_MIDDLE, FRONT_MIDDLE_RIGHT),
+                    $(FRONT_TOP_RIGHT, FRONT_BOTTOM_RIGHT),
+                    $(FRONT_MIDDLE_RIGHT, FRONT_BOTTOM_MIDDLE),
+                    $(FRONT_BOTTOM_RIGHT, FRONT_BOTTOM_LEFT),
+                    $(FRONT_BOTTOM_MIDDLE, FRONT_MIDDLE_LEFT),
+                    $(FRONT_BOTTOM_LEFT, FRONT_TOP_LEFT),
+                    $(FRONT_MIDDLE_LEFT, FRONT_TOP_MIDDLE),
+                    $(FRONT_TOP_LEFT, FRONT_TOP_RIGHT)
             )
-    );
+            //Max 10 key/value pairs
+            /*
+            BACK_LEFT, List.of(
+            ),
+            BACK_RIGHT, List.of(
+            )
+             */
+    ));
+
+    static {
+        results.put(
+                BACK_LEFT, List.of(
+                        $(TOP_BACK_LEFT, LEFT_BACK_BOTTOM),
+                        $(TOP_BACK_MIDDLE, LEFT_BACK_MIDDLE),
+                        $(TOP_BACK_RIGHT, LEFT_BACK_TOP),
+                        $(RIGHT_BACK_TOP, TOP_BACK_LEFT),
+                        $(RIGHT_BACK_MIDDLE, TOP_BACK_MIDDLE),
+                        $(RIGHT_BACK_BOTTOM, TOP_BACK_RIGHT),
+                        $(BOTTOM_BACK_RIGHT, RIGHT_BACK_TOP),
+                        $(BOTTOM_BACK_MIDDLE, RIGHT_BACK_MIDDLE),
+                        $(BOTTOM_BACK_LEFT, RIGHT_BACK_BOTTOM),
+                        $(LEFT_BACK_BOTTOM, BOTTOM_BACK_RIGHT),
+                        $(LEFT_BACK_MIDDLE, BOTTOM_BACK_MIDDLE),
+                        $(LEFT_BACK_TOP, BOTTOM_BACK_LEFT),
+                        $(BACK_TOP_LEFT, BACK_BOTTOM_LEFT),
+                        $(BACK_TOP_MIDDLE, BACK_MIDDLE_LEFT),
+                        $(BACK_TOP_RIGHT, BACK_TOP_LEFT),
+                        $(BACK_MIDDLE_RIGHT, BACK_TOP_MIDDLE),
+                        $(BACK_BOTTOM_RIGHT, BACK_TOP_RIGHT),
+                        $(BACK_BOTTOM_MIDDLE, BACK_MIDDLE_RIGHT),
+                        $(BACK_BOTTOM_LEFT, BACK_BOTTOM_RIGHT),
+                        $(BACK_MIDDLE_LEFT, BACK_BOTTOM_MIDDLE),
+                        $(BACK_TOP_LEFT, BACK_BOTTOM_LEFT)
+                )
+        );
+        results.put(
+                BACK_RIGHT, List.of(
+                        $(TOP_BACK_LEFT, RIGHT_BACK_TOP),
+                        $(TOP_BACK_MIDDLE, RIGHT_BACK_MIDDLE),
+                        $(TOP_BACK_RIGHT, RIGHT_BACK_BOTTOM),
+                        $(RIGHT_BACK_TOP, BOTTOM_BACK_RIGHT),
+                        $(RIGHT_BACK_MIDDLE, BOTTOM_BACK_MIDDLE),
+                        $(RIGHT_BACK_BOTTOM, BOTTOM_BACK_LEFT),
+                        $(BOTTOM_BACK_RIGHT, LEFT_BACK_BOTTOM),
+                        $(BOTTOM_BACK_MIDDLE, LEFT_BACK_MIDDLE),
+                        $(BOTTOM_BACK_LEFT, LEFT_BACK_TOP),
+                        $(LEFT_BACK_BOTTOM, TOP_BACK_LEFT),
+                        $(LEFT_BACK_MIDDLE, TOP_BACK_MIDDLE),
+                        $(LEFT_BACK_TOP, TOP_BACK_RIGHT),
+                        $(BACK_TOP_LEFT, BACK_TOP_RIGHT),
+                        $(BACK_TOP_MIDDLE, BACK_MIDDLE_RIGHT),
+                        $(BACK_TOP_RIGHT, BACK_BOTTOM_RIGHT),
+                        $(BACK_MIDDLE_RIGHT, BACK_BOTTOM_MIDDLE),
+                        $(BACK_BOTTOM_RIGHT, BACK_BOTTOM_LEFT),
+                        $(BACK_BOTTOM_MIDDLE, BACK_MIDDLE_LEFT),
+                        $(BACK_BOTTOM_LEFT, BACK_TOP_LEFT),
+                        $(BACK_MIDDLE_LEFT, BACK_TOP_MIDDLE),
+                        $(BACK_TOP_LEFT, BACK_TOP_RIGHT)
+                )
+        );
+    }
 
     private static Result $(Position origin, Position destination) {
         return new Result(origin, destination);

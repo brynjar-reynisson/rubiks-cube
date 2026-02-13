@@ -198,11 +198,14 @@ public class CubeModel {
         for (BrickState brickState : TARGET_STATE) {
             BrickState modelBrickState = brickStatesByOrdinal.get(brickState.position().ordinal());
             if (!modelBrickState.color().equals(brickState.color())) {
-                differences++;
+                if (Position.isCornerPosition(brickState.position())) {
+                    differences += 2;
+                } else {
+                    differences++;
+                }
             }
         }
         return differences;
-
     }
 
     private String displayOrdinals(int[] ordinals) {

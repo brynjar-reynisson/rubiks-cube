@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MonteCarloTest {
 
-    //@Test
+    @Test
     void shouldSolve() {
         //given
         CubeModel cubeModel = new CubeModel();
         cubeModel.setState(CubeModel.TARGET_STATE);
-        List<Action> actions = Scrambler.createRandomActionList(50, 999);
+        List<Action> actions = Scrambler.createRandomActionList(3, 999);
         cubeModel.applyActions(actions);
 
         //when
-        List<Action> solution = new MonteCarlo(5, 5).solve(cubeModel);
+        List<Action> solution = new MonteCarlo(50, 20).solve(cubeModel);
         cubeModel.applyActions(solution);
 
         //then
