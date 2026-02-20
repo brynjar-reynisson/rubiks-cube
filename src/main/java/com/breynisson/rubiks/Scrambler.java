@@ -12,7 +12,7 @@ public class Scrambler {
         Random random = new Random(randomSeed);
         List<Action> actions = new ArrayList<>();
         for (int i=0; i<actionCount; i++) {
-            int nextOrdinal = random.nextInt(BOTTOM_RIGHT.ordinal()+1);
+            int nextOrdinal = random.nextInt(BACK_RIGHT.ordinal()+1);
             actions.add(actionByOrdinal.get(nextOrdinal));
         }
         return actions;

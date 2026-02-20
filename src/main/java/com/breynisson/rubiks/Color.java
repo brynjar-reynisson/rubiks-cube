@@ -2,7 +2,7 @@ package com.breynisson.rubiks;
 
 import static com.breynisson.rubiks.Side.*;
 
-enum Color {
+public enum Color {
     WHITE(FRONT),
     BLUE(TOP),
     RED(RIGHT),

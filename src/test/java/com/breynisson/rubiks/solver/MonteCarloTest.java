@@ -16,7 +16,7 @@ class MonteCarloTest {
         //given
         CubeModel cubeModel = new CubeModel();
         cubeModel.setState(CubeModel.TARGET_STATE);
-        List<Action> actions = Scrambler.createRandomActionList(3, 999);
+        List<Action> actions = Scrambler.createRandomActionList(5, 999);
         cubeModel.applyActions(actions);
 
         //when

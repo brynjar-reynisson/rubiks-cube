@@ -11,6 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class CubeModelTest {
 
     @Test
+    void invalidState() {
+        //given
+        CubeModel cubeModel = new CubeModel();
+
+        //when
+        try {
+            cubeModel.setState(List.of());
+            fail("Should have thrown an exception");
+        } catch (CubeException e) {
+            //we're good
+        }
+    }
+
+    @Test
     void frontSideInTargetModelShouldBeWhite() {
         //given
         CubeModel cubeModel = new CubeModel();

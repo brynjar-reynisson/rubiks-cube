@@ -70,7 +70,7 @@ public class CubeModel {
             );
 
     private static BrickState $(Position position, Color color) {
-        return new BrickState(position, color);
+        return new BrickState(position, color, position);
     }
 
     public CubeModel createClone() {
@@ -82,20 +82,20 @@ public class CubeModel {
         return theClone;
     }
 
+    public List<BrickState> getState() {
+        return new ArrayList<>(brickStates.values());
+    }
+
     public void setState(List<BrickState> brickStates) {
         this.brickStates.clear();
         this.brickStatesByOrdinal.clear();
+        if (brickStates.size() != 54) {
+            throw new CubeException("State must contain exactly 54 brick states");
+        }
         for (BrickState brickState : brickStates) {
             this.brickStates.put(brickState.position(), brickState);
             this.brickStatesByOrdinal.put(brickState.position().ordinal(), brickState);
         }
-        if (this.brickStates.size() != 54) {
-            throw new CubeException("State must contain exactly 54 brick states");
-        }
-    }
-
-    public List<BrickState> getState() {
-        return new ArrayList<>(brickStates.values());
     }
 
     public void applyStandardNotationActions(Collection<String> standardNotationActions) {
@@ -139,8 +139,9 @@ public class CubeModel {
         //get color from origin and apply to destination
         List<BrickState> updates = new ArrayList<>();
         for (Action.Result result : results) {
-            Color originalColor = brickStates.get(result.origin()).color();
-            updates.add(new BrickState(result.destination(), originalColor));
+            BrickState brickState = brickStates.get(result.origin());
+            Color originalColor = brickState.color();
+            updates.add(new BrickState(result.destination(), originalColor, brickState.targetPosition()));
         }
         for (BrickState update : updates) {
             brickStates.put(update.position(), update);
@@ -209,12 +210,8 @@ public class CubeModel {
         int differences = 0;
         for (BrickState brickState : TARGET_STATE) {
             BrickState modelBrickState = brickStatesByOrdinal.get(brickState.position().ordinal());
-            if (!modelBrickState.color().equals(brickState.color())) {
-                if (Position.isCornerPosition(brickState.position())) {
-                    differences += 2;
-                } else {
-                    differences++;
-                }
+            if (!modelBrickState.targetPosition().equals(brickState.position())) {
+                differences++;
             }
         }
         return differences;

@@ -2,7 +2,7 @@ package com.breynisson.rubiks;
 
 import static com.breynisson.rubiks.Side.*;
 
-enum Position {
+public enum Position {
     FRONT_TOP_LEFT(FRONT),
     FRONT_TOP_MIDDLE(FRONT),
     FRONT_TOP_RIGHT(FRONT),

@@ -19,6 +19,7 @@
         <spring.boot-version>2.7.5</spring.boot-version>
         <camel-version>4.0.2</camel-version>
         <camel.version>4.0.2</camel.version>
+        <javafx.version>21.0.2</javafx.version>
     </properties>
 
     <dependencyManagement>
@@ -110,6 +111,21 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.17.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
         </dependency>
 
     </dependencies>

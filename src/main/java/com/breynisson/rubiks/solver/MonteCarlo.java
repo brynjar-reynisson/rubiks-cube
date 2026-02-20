@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.breynisson.rubiks.Action.BOTTOM_RIGHT;
-import static com.breynisson.rubiks.Action.actionByOrdinal;
+import static com.breynisson.rubiks.Action.*;
 
 public class MonteCarlo implements Solver {
 
@@ -63,7 +62,7 @@ public class MonteCarlo implements Solver {
     private List<Action> createRandomActionList() {
         List<Action> actions = new ArrayList<>();
         for (int i=0; i<iterationsPerRound; i++) {
-            int nextOrdinal = random.nextInt(BOTTOM_RIGHT.ordinal()+1);
+            int nextOrdinal = random.nextInt(BACK_RIGHT.ordinal()+1);
             actions.add(actionByOrdinal.get(nextOrdinal));
         }
         return actions;
