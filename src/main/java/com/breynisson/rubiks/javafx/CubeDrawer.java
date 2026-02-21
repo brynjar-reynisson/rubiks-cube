@@ -69,13 +69,27 @@ public class CubeDrawer {
         gc.strokeLine(cube1MiddleX, cube1FrontRightTopY, cube1RightX, cube1FrontTopLeftY);
         gc.strokeLine(cube1MiddleX, cube1FrontRightTopY, cube1MiddleX, cube1BottomY);
 
+        //m = (y2-y1)/(x2-x1)
         double mFront = (cube1FrontRightTopY-cube1FrontTopLeftY)/(cube1MiddleX-cube1LeftX);
-        //solution for line slope is double y = m * (x-x0) + y0;
+        double mRight = (cube1FrontTopLeftY-cube1FrontRightTopY)/(cube1RightX-cube1MiddleX);
 
         double frontX1 = cube1LeftX + frontVerticalThird;
         double frontX2 = cube1LeftX + frontVerticalThird * 2;
+        //solution for line slope is double y = m * (x-x0) + y0;
         double y1 = mFront * frontVerticalThird + cube1FrontTopLeftY;
         double frontYOffset = y1 - cube1FrontTopLeftY;
+
+        double rightX1 = cube1MiddleX + frontVerticalThird;
+        double rightX2 = cube1MiddleX + frontVerticalThird * 2;
+        double y2 = mRight * frontVerticalThird + cube1FrontRightTopY;
+        double rightYOffset = y2 - cube1FrontRightTopY;
+
+        double topX1 = cube1LeftX + frontVerticalThird;
+        double topX2 = cube1LeftX + frontVerticalThird * 2;
+        double topX3 = cube1LeftX + frontVerticalThird * 3;
+        double topX4 = cube1LeftX + frontVerticalThird * 4;
+        double topX5 = cube1LeftX + frontVerticalThird * 5;
+        double topYOffset = rightYOffset;
 
         for (BrickState brickState : model.getState()) {
             CubePolygon cubePolygon = null;
@@ -154,6 +168,150 @@ public class CubeDrawer {
                             getColorForBrickState(brickState),
                             new double[]{frontX2, cube1LeftX + frontVerticalThird * 3, cube1LeftX + frontVerticalThird * 3, frontX2, frontX2},
                             new double[]{baseY + frontYOffset * 2, baseY + frontYOffset * 3, baseY + frontYOffset * 3 + frontHorizontalThird, baseY + frontYOffset * 2 + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_FRONT_TOP -> {
+                    double baseY = cube1FrontRightTopY;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{cube1MiddleX, rightX1, rightX1, cube1MiddleX, cube1MiddleX},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_MIDDLE_TOP -> {
+                    double baseY = cube1FrontRightTopY + rightYOffset;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{rightX1, rightX2, rightX2, rightX1, rightX1},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_BACK_TOP -> {
+                    double baseY = cube1FrontRightTopY + rightYOffset * 2;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{rightX2, cube1RightX, cube1RightX, rightX2, rightX2},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_FRONT_MIDDLE -> {
+                    double baseY = cube1FrontRightTopY + frontHorizontalThird;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{cube1MiddleX, rightX1, rightX1, cube1MiddleX, cube1MiddleX},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_MIDDLE_MIDDLE -> {
+                    double baseY = cube1FrontRightTopY + frontHorizontalThird + rightYOffset;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{rightX1, rightX2, rightX2, rightX1, rightX1},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_BACK_MIDDLE -> {
+                    double baseY = cube1FrontRightTopY + frontHorizontalThird + rightYOffset * 2;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{rightX2, cube1RightX, cube1RightX, rightX2, rightX2},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_FRONT_BOTTOM -> {
+                    double baseY = cube1FrontRightTopY + frontHorizontalThird * 2;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{cube1MiddleX, rightX1, rightX1, cube1MiddleX, cube1MiddleX},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_MIDDLE_BOTTOM -> {
+                    double baseY = cube1FrontRightTopY + frontHorizontalThird * 2 + rightYOffset;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{rightX1, rightX2, rightX2, rightX1, rightX1},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case RIGHT_BACK_BOTTOM -> {
+                    double baseY = cube1FrontRightTopY + frontHorizontalThird * 2 + rightYOffset * 2;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{rightX2, cube1RightX, cube1RightX, rightX2, rightX2},
+                            new double[]{baseY, baseY + rightYOffset, baseY + rightYOffset + frontHorizontalThird, baseY + frontHorizontalThird, baseY}
+                    );
+                }
+                case TOP_FRONT_LEFT -> {
+                    double baseY = cube1FrontTopLeftY;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{cube1LeftX, topX1, topX2, topX1, cube1LeftX},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
+                    );
+                }
+                case TOP_FRONT_MIDDLE -> {
+                    double baseY = cube1FrontTopLeftY;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX1, topX2, topX3, topX2, topX1},
+                            new double[]{baseY - topYOffset, baseY, baseY - topYOffset, baseY - topYOffset*2, baseY - topYOffset}
+                    );
+                }
+                case TOP_FRONT_RIGHT -> {
+                    double baseY = cube1FrontTopLeftY;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX2, topX3, topX4, topX3, topX2},
+                            new double[]{baseY - topYOffset*2, baseY - topYOffset, baseY - topYOffset*2, baseY - topYOffset*3, baseY - topYOffset*2}
+                    );
+                }
+                case TOP_MIDDLE_LEFT -> {
+                    double baseY = cube1FrontTopLeftY + topYOffset;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX1, topX2, topX3, topX2, topX1},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
+                    );
+                }
+                case TOP_MIDDLE_MIDDLE -> {
+                    double baseY = cube1FrontTopLeftY;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX2, topX3, topX4, topX3, topX2},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
+                    );
+                }
+                case TOP_MIDDLE_RIGHT -> {
+                    double baseY = cube1FrontTopLeftY - topYOffset;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX3, topX4, topX5, topX4, topX3},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
+                    );
+                }
+                case TOP_BACK_LEFT -> {
+                    double baseY = cube1FrontTopLeftY + topYOffset * 2;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX2, topX3, topX4, topX3, topX2},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
+                    );
+                }
+                case TOP_BACK_MIDDLE -> {
+                    double baseY = cube1FrontTopLeftY + topYOffset;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX3, topX4, topX5, topX4, topX3},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
+                    );
+                }
+                case TOP_BACK_RIGHT -> {
+                    double baseY = cube1FrontTopLeftY;
+                    cubePolygon = new CubePolygon(
+                            getColorForBrickState(brickState),
+                            new double[]{topX4, topX5, cube1RightX, topX5, topX4},
+                            new double[]{baseY, baseY + topYOffset, baseY, baseY - topYOffset, baseY}
                     );
                 }
                 default -> {
