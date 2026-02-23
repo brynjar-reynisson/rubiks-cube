@@ -16,7 +16,7 @@ public class CubeApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         cubeModel.setState(CubeModel.TARGET_STATE);
-        //cubeModel.applyActions(Scrambler.createRandomActionList(20, 1));
+        cubeModel.applyActions(Scrambler.createRandomActionList(3, 1));
 
         Canvas canvas = new Canvas(800, 600); // Create a Canvas with specific dimensions
         // Add the Canvas to a layout container (e.g., Group, StackPane)
