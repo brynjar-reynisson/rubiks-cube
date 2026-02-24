@@ -8,19 +8,19 @@ import static com.breynisson.rubiks.Position.BACK_TOP_RIGHT;
 public enum Action {
     LEFT_DOWN("L"),
     LEFT_UP("L'"),
-    RIGHT_DOWN("R'"),
     RIGHT_UP("R"),
-    TOP_LEFT("U'"),
+    RIGHT_DOWN("R'"),
     TOP_RIGHT("U"),
+    TOP_LEFT("U'"),
     BOTTOM_LEFT("D"),
     BOTTOM_RIGHT("D'"),
-    FRONT_LEFT("F'"),
     FRONT_RIGHT("F"),
+    FRONT_LEFT("F'"),
     BACK_LEFT("B"),
     BACK_RIGHT("B'")
     ;
 
-    final String standardNotation;//clock-wise L, U (top), R, D (bottom), F (front), B (back) and inverse counter-clockwise, L', U'...
+    public final String standardNotation;//clock-wise L, U (top), R, D (bottom), F (front), B (back) and inverse counter-clockwise, L', U'...
     Action(String standardNotation) {
         this.standardNotation = standardNotation;
     }
